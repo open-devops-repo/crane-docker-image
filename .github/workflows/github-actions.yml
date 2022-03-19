@@ -35,5 +35,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: opendevopsrepo/buildah-stable:${{ env.VERSION }}
+          tags: opendevopsrepo/crane-stable:${{ env.VERSION }}
 
