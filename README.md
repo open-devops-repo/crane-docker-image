@@ -10,7 +10,7 @@ and republishes it on Dockerhub under ```opendevopsrepo/crane-debug:latest```.
 Usage
 -----
 
-Example on flatten of a Docker image (e.g. to work around [Kaniko](https://github.com/GoogleContainerTools/kaniko) [Cloud Foundry](https://www.cloudfoundry.org/) bug: [Kaniko Bug with CF#1149](https://github.com/GoogleContainerTools/kaniko/issues/1149)):
+Example on flatten of a Docker image (e.g. to work around [Kaniko](https://github.com/GoogleContainerTools/kaniko) and [Cloud Foundry](https://www.cloudfoundry.org/) bug: [Kaniko Bug with CF#1149](https://github.com/GoogleContainerTools/kaniko/issues/1149)):
 
     docker run --rm -it --entrypoint "/busybox/sh" gcr.io/go-containerregistry/crane:debug
 
