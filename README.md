@@ -3,21 +3,27 @@ crane-docker-image
 
 Introduction
 ------------
-This projects mirrows the Docker image ```gcr.io/go-containerregistry/crane:debug```
+This projects builds a Docker image with [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane). The projects mirrows the Docker image ```gcr.io/go-containerregistry/crane:debug```
 and republishes it on Dockerhub under ```opendevopsrepo/crane-debug:latest```.
 
 
 Usage
 -----
 
-Example on flatten of a Docker image (e.g. to work around [Kaniko](https://github.com/GoogleContainerTools/kaniko) and [Cloud Foundry](https://www.cloudfoundry.org/) bug: [Kaniko Bug with CF#1149](https://github.com/GoogleContainerTools/kaniko/issues/1149)):
+Example on flatten of a Docker image:
 
-    docker run --rm -it --entrypoint "/busybox/sh" gcr.io/go-containerregistry/crane:debug
+    #docker run --rm -it --entrypoint "/busybox/sh" gcr.io/go-containerregistry/crane:debug
+    docker run --rm -it --entrypoint "/busybox/sh"opendevopsrepo/crane-debug:latest
 
     #crane auth login -u USER -p PW -v index.docker.io  # for dockerhub
     crane auth login -u USER -p PW -v REPOSERVER
-    crane cp MYREPO/foo:latest MYREPO/foo-flatten:latest
-    crane flatten MYREPO/foo-flatten:latest
+    crane cp MYREPO/foo:latest MYREPO/foo-flat:latest
+    crane flatten MYREPO/foo-flat:latest
+
+Why can a flatten of an image be useful, beside of a potential reduced Docker image size?
+Flatten of an image can be useful if you use [Kaniko](https://github.com/GoogleContainerTools/kaniko) and [Cloud Foundry](https://www.cloudfoundry.org/),
+because Docker images built with Kaniko can fail to run in Cloud Foundry because of a [Kaniko Bug with CF #1149](https://github.com/GoogleContainerTools/kaniko/issues/1149).
+This can also not be simply fixed by a multi-stage Dockerfile, because of a [Kaniko Multistage COPY failure #1210](https://github.com/GoogleContainerTools/kaniko/issues/1210).
 
 Docs:
 * https://github.com/google/go-containerregistry/tree/main/cmd/crane
